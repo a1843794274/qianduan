@@ -2,15 +2,18 @@
 <body>
    <script src="jquery-3.4.1.js"></script>
     <h1>我叫<span id="myname"></span></h1>
-    <p>我的学号是<span id="mynumber"></span><br>
+   
+    <p>我的学号是<span id="mynumber"></span>
         <input type="button" id="tijiao" value="下一个">
+        <br>
+        
     <img src="matrix.png">
         <img src="313649.jpg"  width="1000px" style="border-radius: 10px 20px 40px 80px">  
     </p>
     
     <script>
         $(function(){
-         $("tijiao").click(function(){
+         $("#tijiao").click(function(){
             $.get("./data1.json",function(result){
         $("#myname").text(result.myname);
         $("#mynumber").text(result.mynumber);
@@ -19,9 +22,7 @@
 
          })
 
-
-           
-            $.get("./data.json",function(result){
+    $.get("./data.json",function(result){
         $("#myname").text(result.myname);
         $("#mynumber").text(result.mynumber);
          })
