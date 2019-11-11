@@ -17,13 +17,22 @@
         $("#myname").text(result.myname);
         $("#mynumber").text(result.mynumber);
          }
-      $.get("http://10.30.201.67:8585/data.json",callback);   
+      $.ajax({
+          type:"POST",
+          usl:"http://127.0.0.1:8585/data.json",
+          contentType:'application/json',
+          data:JSON.stringify({"stunumber":"2012020045"}),
+          callback
+      });
+      
+      
+      //$.post("http://10.30.201.68:8585/data.json",callback);   
         })
         
 
 
         $("#tijiao").click(function(){
-            $.get("http://127.0.0.1:8585/data.json",function(result){
+            $.post("http://127.0.0.1:8585/data.json",function(result){
         $("#myname").text(result.myname);
         $("#mynumber").text(result.mynumber);
          });
