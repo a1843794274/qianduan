@@ -19,20 +19,20 @@
          }
       $.ajax({
           type:"POST",
-          usl:"http://127.0.0.1:8585/data.json",
+          usl:"http://127.0.0.1:8585/userinfo",
           contentType:'application/json',
           data:JSON.stringify({"stunumber":"2012020045"}),
           callback
       });
       
       
-      //$.post("http://10.30.201.68:8585/data.json",callback);   
+      //$.post("http://10.30.201.68:8585/userinfo",callback);   
         })
         
 
 
         $("#tijiao").click(function(){
-            $.post("http://127.0.0.1:8585/data.json",function(result){
+            $.post("http://127.0.0.1:8585/userinfo",function(result){
         $("#myname").text(result.myname);
         $("#mynumber").text(result.mynumber);
          });

@@ -18,13 +18,15 @@
 $("#btn").click(function(){
   $.ajax({
           type:"POST",
+          xhrFields:{withCredentials:true},
           url:"http://127.0.0.1:8585/login",
           contentType:'application/json',
+          
           data:JSON.stringify({"number":$("#name").val(),
           "password":$("#password").val(),
         }),
           success:function(result){
-            if(result.result='success'){
+            if(result.result=='success'){
               location.href="index.html"
             }
           }
