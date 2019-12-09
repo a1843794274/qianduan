@@ -6,38 +6,46 @@
     <p>我的学号是<span id="mynumber"></span>
         <input type="button" id="tijiao" value="下一个">
         <br>
-        
+        <a id="btnlogin" href="login.html">去登陆</a>
+        <a id="btnlogout" href="#">去注销</a>
     <img src="matrix.png">
         <img src="313649.jpg"  width="1000px" style="border-radius: 10px 20px 40px 80px">  
     </p>
-    
+ 
     <script>
         $(function(){
           var callback=function(result){
-        $("#myname").text(result.myname);
+        if(result.myname){
+            $("#myname").text(result.myname);
         $("#mynumber").text(result.mynumber);
+        $("#btnlogin").hide();
+        }else{
+            $("#btnlogout").hide();
+        }
+        
          }
       $.ajax({
           type:"POST",
-          usl:"http://127.0.0.1:8585/userinfo",
-          contentType:'application/json',
-          data:JSON.stringify({"stunumber":"2012020045"}),
-          callback
+          url:"http://10.30.201.68:8585/userinfo",
+          xhrFields:{withCredentials:true},
+         // contentType:'application/json',
+        //  data:JSON.stringify({"stunumber":"2012020045"}),
+          success:callback
       });
       
       
-      //$.post("http://10.30.201.68:8585/userinfo",callback);   
+    
         })
-        
-
-
-        $("#tijiao").click(function(){
-            $.post("http://127.0.0.1:8585/userinfo",function(result){
-        $("#myname").text(result.myname);
-        $("#mynumber").text(result.mynumber);
-         });
-         
-         })
+   $("#btnlogout").click(function(){
+       $.ajax({
+           type:"GET",
+           xhrFields:{withCredentials: true},
+           url:"http://10.30.201.68:8585/logout",
+           success:function(){
+               location.href="index.html";
+           }
+       });
+   })
     </script>
 </body>
 </html>
