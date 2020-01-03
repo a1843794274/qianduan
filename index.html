@@ -1,73 +1,81 @@
 <html>
 <body>
-<h1>我叫<span id="myname"></span></h1>
-
+   <script src="jquery-3.4.1.js"></script>
+    <h1>我叫<span id="myname"></span></h1>
+   
     <p>我的学号是<span id="mynumber"></span>
+        <input type="button" id="tijiao" value="下一个">
+        <br>
+        <a id="btnlogin" href="login.html">去登陆</a>
+        <a id="btnlogout" href="#">去注销</a>
+        <input id="content" type="text">
+        <button id=btnAdd>添加信息</button>
+        <img src="313649.jpg" style="width: 1000px;">  
+
     </p>
-    <a id="alogin" href="login.html">去登录</a>
-    <a id="alogout" href="#">去注销</a>
-
-    <input id="content" type="text">
-    <button id=btnAdd>添加</button>
-
-<ul id="ul">
-</ul>
-    <script src="jquery-3.4.1.js"></script>
+    <ul id="ul">
+    </ul>
     <script>
         $(function(){
 
-            var callback=function (result){
-                if(!result || !result.myname){
-                    $("#alogout").hide();
-                    $("#content").hide();
-                    $("#btnAdd").hide();
-                }else{
-                    $("#myname").text(result.myname);
-                    $("#mynumber").text(result.mynumber);
-                    $("#alogin").hide();
+var callback=function (result){
+    if(!result || !result.myname){
+        $("#alogout").hide();
+        $("#content").hide();
+        $("#btnAdd").hide();
+    }else{
+        $("#myname").text(result.myname);
+        $("#mynumber").text(result.mynumber);
+        $("#alogin").hide();
+    }
+ }
+ $.ajax({
+    type:"POST",
+    xhrFields: {
+            withCredentials: true
+    },
+    url:"http://127.0.0.1:8585/userinfo",
+    contentType:"application/json",
+    success:callback
+ });
+
+ $.post("http://127.0.0.1:8585/lvlilist",
+            function(result){
+                for(var i=0;i<result.length;i++){
+                    $("#ul").append("<li>"+ result[i].url+"</li>")
                 }
-             }
-             $.ajax({
-                type:"POST",
-                xhrFields: {
-                        withCredentials: true
-                },
-                url:"http://127.0.0.1:8585/userinfo",
-                contentType:"application/json",
-                success:callback
-             });
-     
-             $.post("http://127.0.0.1:8585/lvlilist",
-                        function(result){
-                            for(var i=0;i<result.length;i++){
-                                $("#ul").append("<li>"+ result[i].url+"</li>")
-                            }
+})
+
+
+
+
+
+$("#alogout").click(function(){
+    $.ajax({
+    type:"POST",
+    xhrFields: {
+            withCredentials: true
+    },
+    url:"http://127.0.0.1:8585/logout",
+    success:function(){
+        location.href="index.html";
+    }
+ });
+});
+
+
+$("#btnAdd").click(function(){
+    $.post("http://127.0.0.1:8585/addlvli",
+            {lvli:$("#content").val()},
+            function(){
+                location.href="index.html"; 
             })
-            
-            $("#alogout").click(function(){
-                $.ajax({
-                type:"POST",
-                xhrFields: {
-                        withCredentials: true
-                },
-                url:"http://127.0.0.1:8585/logout",
-                success:function(){
-                    location.href="index.html";
-                }
-             });
-            });
+})
 
-   
-            $("#btnAdd").click(function(){
-                $.post("http://127.0.0.1:8585/addlvli",
-                        {lvli:$("#content").val()},
-                        function(){
-                            location.href="index.html"; 
-                        })
-            })
+})
 
-        })
 
+</script>
 
     </script>
 </body>
